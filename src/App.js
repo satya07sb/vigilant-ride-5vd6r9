@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const PDFViewer = ({ pdfUrl }) => {
+const PDFViewer = ({ pdfUrl, clientId }) => {
   useEffect(() => {
-    if (window.AdobeDC) {
+    if (window.AdobeDC && clientId) {
       const adobeDCView = new window.AdobeDC.View({
-        clientId: "48dc7733eaac448a989c0930562636a6",
+        clientId: clientId,
         divId: "adobe-dc-view",
       });
 
@@ -16,7 +16,7 @@ const PDFViewer = ({ pdfUrl }) => {
         { embedMode: "FULL_WINDOW" }
       );
     }
-  }, [pdfUrl]);
+  }, [pdfUrl, clientId]);
 
   return <div id="adobe-dc-view" style={{ height: "600px" }} />;
 };
@@ -24,7 +24,8 @@ const PDFViewer = ({ pdfUrl }) => {
 function App() {
   const [fileUrl, setFileUrl] = useState(null);
   const [fileType, setFileType] = useState("");
-
+  const [clientId, setClientId] = useState("");
+  const defaultId="8248bf8658754c95bbf91ec38dd128c9"
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -38,11 +39,27 @@ function App() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Upload and Preview File</h2>
-      <input type="file" accept=".pdf" onChange={handleFileChange} />
+      <h2>Upload PDF and Enter Adobe API Key</h2>
+
+      <input
+        type="text"
+        placeholder="Enter Adobe PDF Embed API Key"
+        value={clientId}
+        onChange={(e) => setClientId(e.target.value)}
+        style={{ marginBottom: "10px", width: "100%", padding: "8px" }}
+      />
+
+      <input
+        type="file"
+        accept=".pdf"
+        onChange={handleFileChange}
+        style={{ display: "block", marginTop: "10px" }}
+      />
 
       <div style={{ marginTop: "20px" }}>
-        {fileUrl && fileType === "pdf" && <PDFViewer pdfUrl={fileUrl} />}
+      {fileUrl && fileType === "pdf" && (
+  <PDFViewer pdfUrl={fileUrl} clientId={clientId || defaultId} />
+)}
       </div>
     </div>
   );
