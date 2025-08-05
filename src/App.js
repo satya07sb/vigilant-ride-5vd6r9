@@ -25,7 +25,7 @@ function App() {
   const [fileUrl, setFileUrl] = useState(null);
   const [fileType, setFileType] = useState("");
   const [clientId, setClientId] = useState("");
-  const defaultId = "e258a54b55644c23bf9aec4ee10cdf92";
+  const defaultId = "a57765b8f681431489d51f880d8e7820";
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
