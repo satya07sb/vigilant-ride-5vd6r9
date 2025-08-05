@@ -25,7 +25,7 @@ function App() {
   const [fileUrl, setFileUrl] = useState(null);
   const [fileType, setFileType] = useState("");
   const [clientId, setClientId] = useState("");
-  const defaultId="8248bf8658754c95bbf91ec38dd128c9"
+  const defaultId = "e258a54b55644c23bf9aec4ee10cdf92";
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -57,9 +57,9 @@ function App() {
       />
 
       <div style={{ marginTop: "20px" }}>
-      {fileUrl && fileType === "pdf" && (
-  <PDFViewer pdfUrl={fileUrl} clientId={clientId || defaultId} />
-)}
+        {fileUrl && fileType === "pdf" && (
+          <PDFViewer pdfUrl={fileUrl} clientId={clientId || defaultId} />
+        )}
       </div>
     </div>
   );
